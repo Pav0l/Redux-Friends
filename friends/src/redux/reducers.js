@@ -1,13 +1,11 @@
 import * as types from './actionTypes';
 
-export default function logToken(token='', action) {
+export default function friends(friends=[], action) {
   switch (action.type) {
-    case types.LOGIN_SUCCESS:
-      return {
-        token: action.payload
-      };
+    case types.GET_FRIENDS:
+      return action.payload;
   
     default:
-      return token;
+      return friends;
   }
 }

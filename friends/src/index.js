@@ -4,16 +4,17 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import customLoginMiddleware from './redux/middleware';
 import './index.css';
-import logToken from './redux/reducers';
+import rootReducer from './redux/combineReducers';
 import App from './App';
 
 
 const store = createStore(
-  logToken,
+  rootReducer,
   {},
   compose(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(thunk, logger, customLoginMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   )
 );

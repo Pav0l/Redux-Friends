@@ -1,17 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from './redux/actionCreators';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
+import Login from './components/Login';
+import FriendsList from './components/FriendsList';
+import { login, fetchFriends } from './redux/actionCreators';
 
 
 class App extends Component {
   render() {
     return (
-      <div>
-        Hello world!
-        <button onClick={() => this.props.login('Lambda School', 'i<3Lambd4')}>Get token</button>
-      </div>
+      <Router>
+        <StyledContainer>
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to="/friends">Friends</Link>
+            <Link to="/login">Login</Link>
+          </nav>
+          
+          <Route
+            path="/friends"
+            render={pr => (
+              localStorage.getItem('userToken')
+              ? (
+                <FriendsList
+                  {...pr}
+                />
+              )
+              : (
+                <Redirect to="/login" />
+              )
+            )}
+          />
+
+          <Route
+            path="/login"
+            component={Login}
+          />
+          
+          <button onClick={() => this.props.fetchFriends()}>Get friends</button>
+        </StyledContainer>
+      </Router>
     );
   }
 }
 
-export default connect(st => st, { login } )(App);
+export default connect(st => st, { login, fetchFriends } )(App);
+
+const StyledContainer = styled.div`
+  padding: 10px;
+  nav {
+    a {
+      margin-right: 12px;
+    }
+    margin-bottom: 12px;
+  }
+`;
