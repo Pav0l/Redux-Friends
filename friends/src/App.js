@@ -13,9 +13,10 @@ export default class App extends Component {
           <nav>
             <Link to="/">Home</Link>
             <Link to="/friends">Friends</Link>
+
             <Link to="/login">Login</Link>
           </nav>
-          
+         
           <Route
             path="/friends"
             render={pr => (

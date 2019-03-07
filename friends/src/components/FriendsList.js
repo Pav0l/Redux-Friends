@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchFriends } from '../redux/actionCreators';
+import { fetchFriends, deleteFriend } from '../redux/actionCreators';
+import AddFriend from './AddFriend';
 
 export class FriendsList extends React.Component {
   
@@ -8,8 +9,16 @@ export class FriendsList extends React.Component {
     this.props.fetchFriends();
   }
 
+  deleteRef = React.createRef();
+
+  onDelete = () => {
+    const userId = this.deleteRef.current.value;
+
+    this.props.deleteFriend(userId);
+  }
+
+
   render() {
-    debugger
     if (this.props.loading) {
       return (
         <div>Loading...</div>
@@ -17,6 +26,7 @@ export class FriendsList extends React.Component {
     } else {
       return (
         <div>
+          <AddFriend />
           {
             this.props.friends.map(friend => (
               <div key={friend.id}>
@@ -26,6 +36,10 @@ export class FriendsList extends React.Component {
               </div>
             ))
           }
+          <div>
+            <input ref={this.deleteRef} type="text" placeholder="Enter ID of friend to delete"></input>
+            <button onClick={() => this.onDelete()}>Delete Friend</button>
+          </div>
         </div>
       );
     }
@@ -39,4 +53,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchFriends })(FriendsList);
+export default connect(mapStateToProps, { fetchFriends, deleteFriend })(FriendsList);
