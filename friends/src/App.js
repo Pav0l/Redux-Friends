@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Login from './components/Login';
 import FriendsList from './components/FriendsList';
-import { login, fetchFriends } from './redux/actionCreators';
 
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <Router>
@@ -37,15 +35,12 @@ class App extends Component {
             path="/login"
             component={Login}
           />
-          
-          <button onClick={() => this.props.fetchFriends()}>Get friends</button>
+
         </StyledContainer>
       </Router>
     );
   }
 }
-
-export default connect(st => st, { login, fetchFriends } )(App);
 
 const StyledContainer = styled.div`
   padding: 10px;

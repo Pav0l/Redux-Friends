@@ -18,8 +18,10 @@ export class Login extends React.Component {
       <div>
         <input type="text" ref={this.userNameRef} placeholder="Enter user name"></input>
         <input type="text" ref={this.passwordRef} placeholder="Enter password"></input>
-        <button onClick={this.onLogin}>Log in</button>
-        <button onClick={() => localStorage.clear()}>Log out</button>
+        <div>
+          <button onClick={this.onLogin}>Log in</button>
+          <button onClick={() => localStorage.clear()}>Log out</button>
+        </div>
       </div>
     );
   }
